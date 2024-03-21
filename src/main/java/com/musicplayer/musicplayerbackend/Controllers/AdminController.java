@@ -2,6 +2,7 @@ package com.musicplayer.musicplayerbackend.Controllers;
 
 import com.musicplayer.musicplayerbackend.Service.UserService;
 import com.musicplayer.musicplayerbackend.model.RegularUser;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,14 +21,14 @@ public class AdminController {
     private UserService userService;
 
     @GetMapping
-    public ResponseEntity<List<RegularUser>> getAllUsers() {
-        return new ResponseEntity<List<RegularUser>>(userService.getAllUsers(), HttpStatus.OK);
+    public ResponseEntity<List<RegularUser>> getAllUsers() {// get all the users
+        return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.OK);
     }
 
-    @GetMapping("/{Username}")
-    public ResponseEntity<Optional<RegularUser>> getSingleUser(@PathVariable String Username)
+    @GetMapping("/{id}")//gets user based on their object id
+    public ResponseEntity<Optional<RegularUser>> getSingleUser(@PathVariable ObjectId id)
     {
-        return new ResponseEntity<Optional<RegularUser>>(userService.singleUser(Username),HttpStatus.OK);
+        return new ResponseEntity<>(userService.singleUser(id), HttpStatus.OK);
     }
 
 }
