@@ -14,12 +14,11 @@ import java.util.List;
 public class RegularUser implements Users {
     @Id
     private ObjectId id; // Use ObjectId for ID field
-    private String Username;
+    private String username;
     private String name;
     private String email;
     private UserRole role= UserRole.USER;
     private List<LikedSong> likedSongs; // List of songs user has liked
-    // Other user-related information such as password, name, email, etc.
 
     @Override
     public ObjectId getId() {
@@ -28,7 +27,7 @@ public class RegularUser implements Users {
 
     @Override
     public String getUsername() {
-        return Username;
+        return username;
     }
 
     @Override

@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
+
 
 @Service
 public class AdminService {
@@ -15,5 +15,4 @@ public class AdminService {
     public List<RegularUser> allUsers(){
         return userRepository.findAll();
     }
-
 }
