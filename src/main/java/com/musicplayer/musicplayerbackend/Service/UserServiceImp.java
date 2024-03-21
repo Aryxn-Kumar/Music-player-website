@@ -11,8 +11,11 @@ import java.util.Optional;
 
 @Service
 public class UserServiceImp implements UserService{
-    @Autowired
     private UserRepository userRepository;
+    @Autowired
+    private UserServiceImp(UserRepository userRepository){
+        this.userRepository = userRepository;
+    }
     @Override
     public List<RegularUser> getAllUsers() {
         return userRepository.findAll();
