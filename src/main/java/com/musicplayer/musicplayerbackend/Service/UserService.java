@@ -11,5 +11,9 @@ import java.util.Optional;
 public interface UserService {
     List<RegularUser> getAllUsers();
 
-    Optional<RegularUser> singleUser(ObjectId id);
+    void deleteUserByUsername(String username);
+
+    Optional<RegularUser> getUserByUsername(String username);
+
+    RegularUser createUser(RegularUser user);
 }
