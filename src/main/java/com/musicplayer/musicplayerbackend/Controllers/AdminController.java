@@ -17,28 +17,28 @@ public class AdminController {
     @Autowired
     private UserService userService;
 
-    @GetMapping("/home")
+    @GetMapping("/home")//go to localhost:8080/admin/home to see admin interface
     public String adminHome() {
-        return "index"; // Assuming "index.html" is the homepage template
+        return "index";
     }
 
     @GetMapping("/get_all_users")
     public String getAllUsers(Model model) {
         List<RegularUser> users = userService.getAllUsers();
         model.addAttribute("users", users);
-        return "allUsers"; // Assuming there's an allUsers.html Thymeleaf template
+        return "allUsers";
     }
 
     @GetMapping("/createUser")
     public String showCreateUserForm(Model model) {
         model.addAttribute("user", new RegularUser());
-        return "createUser"; // Assuming there's a createUser.html Thymeleaf template
+        return "createUser";
     }
 
     @PostMapping("/createUser")
     public String createUser(@ModelAttribute("user") RegularUser user) {
         userService.createUser(user);
-        return "redirect:/admin/get_all_users"; // Redirect to view all users after creating user
+        return "redirect:/admin/get_all_users";
     }
 
     @GetMapping("/get_user")
@@ -51,12 +51,12 @@ public class AdminController {
         } else {
             model.addAttribute("userFound", false);
         }
-        return "index"; // Return to homepage to display search results
+        return "index";
     }
 
     @PostMapping("/deleteUser")
     public String deleteUserByUsername(@RequestParam("username") String username) {
         userService.deleteUserByUsername(username);
-        return "redirect:/admin/get_all_users"; // Redirect to view all users after deleting user
+        return "redirect:/admin/get_all_users";
     }
 }
