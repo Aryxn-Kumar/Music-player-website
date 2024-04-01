@@ -23,8 +23,7 @@ public class MusicController {
         }
 
         try {
-            // Upload the music file to GridFS
-            gridFsService.uploadMusic(file);
+            gridFsService.uploadMusic(file, "MusicBucket");
             return new ResponseEntity<>("File uploaded successfully.", HttpStatus.OK);
         } catch (IOException e) {
             return new ResponseEntity<>("Failed to upload file: " + e.getMessage(), HttpStatus.INTERNAL_SERVER_ERROR);
