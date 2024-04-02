@@ -12,6 +12,10 @@ import org.springframework.data.mongodb.core.mapping.Document;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Song {
+    public Song(String fileName) {
+        this.fileName = fileName;
+    }
+
     @Id
     private ObjectId Id;
     private String fileName;
