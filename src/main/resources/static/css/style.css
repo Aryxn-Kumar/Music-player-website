@@ -1,0 +1,53 @@
+/* Reset default styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Dark theme styles */
+body {
+    background-color: #343a40; /* Dark background color */
+    color: #fff; /* Light text color */
+    font-family: Arial, sans-serif; /* Use a common font family */
+}
+
+.container {
+    margin-top: 50px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+th, td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #dee2e6;
+}
+
+th {
+    background-color: #212529; /* Dark header background color */
+    color: #fff; /* Light text color for header */
+}
+
+tr:nth-child(even) {
+    background-color: #495057; /* Dark alternate row background color */
+}
+
+tr:hover {
+    background-color: #343a40; /* Dark hover background color */
+}
+
+/* Responsive styles for tables */
+@media (max-width: 768px) {
+    table {
+        font-size: 14px; /* Reduce font size for smaller screens */
+    }
+
+    th, td {
+        padding: 6px; /* Adjust padding for smaller screens */
+    }
+}

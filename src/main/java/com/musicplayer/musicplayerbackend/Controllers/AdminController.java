@@ -2,33 +2,61 @@ package com.musicplayer.musicplayerbackend.Controllers;
 
 import com.musicplayer.musicplayerbackend.Service.UserService;
 import com.musicplayer.musicplayerbackend.model.RegularUser;
-import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
-@RestController
-@RequestMapping("/api/v1/admin")
+@Controller
+@RequestMapping("/admin")
 public class AdminController {
+
     @Autowired
     private UserService userService;
 
-    @GetMapping
-    public ResponseEntity<List<RegularUser>> getAllUsers() {// get all the users
-        return new ResponseEntity<>(userService.getAllUsers(), HttpStatus.OK);
+    @GetMapping("/home")//go to localhost:8080/admin/home to see admin interface
+    public String adminHome() {
+        return "index";
     }
 
-    @GetMapping("/{id}")//gets user based on their object id
-    public ResponseEntity<Optional<RegularUser>> getSingleUser(@PathVariable ObjectId id)
-    {
-        return new ResponseEntity<>(userService.singleUser(id), HttpStatus.OK);
+    @GetMapping("/get_all_users")
+    public String getAllUsers(Model model) {
+        List<RegularUser> users = userService.getAllUsers();
+        model.addAttribute("users", users);
+        return "allUsers";
     }
 
+    @GetMapping("/createUser")
+    public String showCreateUserForm(Model model) {
+        model.addAttribute("user", new RegularUser());
+        return "createUser";
+    }
+
+    @PostMapping("/createUser")
+    public String createUser(@ModelAttribute("user") RegularUser user) {
+        userService.createUser(user);
+        return "redirect:/admin/get_all_users";
+    }
+
+    @GetMapping("/get_user")
+    public String getUserByUsername(@RequestParam("username") String username, Model model) {
+        Optional<RegularUser> userOptional = userService.getUserByUsername(username);
+        if (userOptional.isPresent()) {
+            RegularUser user = userOptional.get();
+            model.addAttribute("user", user);
+            model.addAttribute("userFound", true);
+        } else {
+            model.addAttribute("userFound", false);
+        }
+        return "index";
+    }
+
+    @PostMapping("/deleteUser")
+    public String deleteUserByUsername(@RequestParam("username") String username) {
+        userService.deleteUserByUsername(username);
+        return "redirect:/admin/get_all_users";
+    }
 }
