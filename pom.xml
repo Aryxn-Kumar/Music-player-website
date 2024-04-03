@@ -19,8 +19,8 @@
 	<dependencies>
 		<dependency>
 			<groupId>org.mongodb</groupId>
-			<artifactId>mongo-java-driver</artifactId>
-			<version>3.12.8</version> <!-- or the version you prefer -->
+				<artifactId>mongo-java-driver</artifactId>
+			<version>3.12.4</version> <!-- or the version you prefer -->
 		</dependency>
 
 		<dependency>
