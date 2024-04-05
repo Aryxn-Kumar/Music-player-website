@@ -49,7 +49,7 @@ public class AdminController {
             model.addAttribute("user", user);
             model.addAttribute("userFound", true);
         } else {
-            model.addAttribute("userFound", false);
+            model.addAttribute("userNotFound", false);
         }
         return "index";
     }
