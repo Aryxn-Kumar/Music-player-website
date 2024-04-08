@@ -17,21 +17,27 @@
 		<java.version>17</java.version>
 	</properties>
 	<dependencies>
-		<dependency>
-			<groupId>org.mongodb</groupId>
-			<artifactId>mongo-java-driver</artifactId>
-			<version>3.12.8</version> <!-- or the version you prefer -->
-		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>org.mongodb</groupId>-->
+<!--				<artifactId>mongo-java-driver</artifactId>-->
+<!--			<version>3.8.2</version> &lt;!&ndash; or the version you prefer &ndash;&gt;-->
+<!--		</dependency>-->
+
+<!--		<dependency>-->
+<!--			<groupId>org.mongodb</groupId>-->
+<!--			<artifactId>bson</artifactId>-->
+<!--			<version>4.2.3</version>-->
+<!--		</dependency>-->
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-data-mongodb</artifactId>
 		</dependency>
-		<dependency>
-			<groupId>org.mongodb</groupId>
-			<artifactId>mongodb-driver-sync</artifactId>
-			<version>5.0.0</version>
-		</dependency>
+<!--		<dependency>-->
+<!--			<groupId>org.mongodb</groupId>-->
+<!--			<artifactId>mongodb-driver-sync</artifactId>-->
+<!--			<version>4.2.3</version>-->
+<!--		</dependency>-->
 
 		<dependency>
 			<groupId>org.springframework.boot</groupId>
