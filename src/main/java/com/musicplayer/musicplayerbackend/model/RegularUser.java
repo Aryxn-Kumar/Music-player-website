@@ -29,4 +29,31 @@ public class RegularUser implements Users {
     @Getter @Setter
     private List<LikedSong> likedSongs; // List of songs user has liked
 
+    @Override
+    public String toString() {
+        return "RegularUser{" +
+                "id=" + id +
+                ", username='" + username + '\'' +
+                ", name='" + name + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", role=" + role +
+                ", likedSongs=" + likedSongs +
+                '}';
+    }
+
+    @Override
+    public ObjectId getId() {
+        return null;
+    }
+
+    @Override
+    public String getUsername() {
+        return "";
+    }
+
+    @Override
+    public UserRole getRole() {
+        return null;
+    }
 }

@@ -13,6 +13,7 @@ public class AdminService {
     @Autowired
     private UserRepository userRepository;
     public List<RegularUser> allUsers(){
+        System.out.println("Returning all users from admin service");
         return userRepository.findAll();
     }
 }
