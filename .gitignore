@@ -4,6 +4,7 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 temp/
+azure/
 src/main/resources/application.propertiess
 ### STS ###
 .apt_generated
