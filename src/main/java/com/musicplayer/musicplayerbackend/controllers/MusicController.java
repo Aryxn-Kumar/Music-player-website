@@ -16,14 +16,6 @@ public class MusicController {
     private MusicService musicService;
 
 
-    @PostMapping("/upload")
-    public ResponseEntity<String> uploadMusic(@RequestParam("file") MultipartFile file) {
-        String convertedFile = musicService.uploadMusicToBlob(file);
-
-        System.out.println(convertedFile);
-        return ResponseEntity.ok("Music converted to HLS successfully.");
-    }
-
     @GetMapping("/play")
     public String showPlayer(){
         return "musicPlayer";

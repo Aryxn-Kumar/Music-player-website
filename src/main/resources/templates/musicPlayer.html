@@ -6,12 +6,59 @@
     <title>Music Player</title>
     <!-- Include any CSS files for styling -->
     <link rel="stylesheet" type="text/css" href="styles.css">
+    <style>
+        body {
+            background-color: #000;
+            color: #888;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            text-align: center;
+        }
+        h1 {
+            font-size: 2em;
+            color: #ccc;
+        }
+        input[type="text"] {
+            padding: 10px;
+            margin: 10px;
+            border: none;
+            border-radius: 5px;
+            width: 300px;
+            font-size: 1em;
+            background-colour: #8899a5;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #444;
+            color: #fff;
+            font-size: 1em;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #666;
+        }
+        audio {
+            width: 100%;
+            margin-top: 20px;
+        }
+    </style>
 </head>
 <body>
 <div class="container">
-    <h1>Welcome to Your Music Player</h1>
+    <h1>Welcome to AudioVerse</h1>
     <input type="text" id="searchInput" placeholder="Search for a song...">
     <button onclick="searchSong()">Search</button>
+    <button onclick="likeSong()">Like</button>
     <audio id="audioPlayer" controls></audio>
 </div>
 
@@ -21,7 +68,7 @@
 <script>
     function searchSong() {
         var searchTerm = $("#searchInput").val();
-        $.get("/play/" + searchTerm, function(hlsUrl) {
+        $.get("/music/play/" + searchTerm, function(hlsUrl) {
             if (Hls.isSupported()) {
                 const audioPlayer = document.getElementById('audioPlayer');
                 const hls = new Hls();
@@ -31,6 +78,9 @@
                 console.error('HLS.js is not supported');
             }
         });
+    }
+    function likeSong() {
+        // Add functionality to like a song here
     }
 </script>
 </body>

@@ -3,11 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <title>File Upload</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        h2 {
+            text-align: center;
+            color: #333;
+        }
+        form {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        input[type="file"] {
+            margin-bottom: 10px;
+        }
+        input[type="submit"] {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+        input[type="submit"]:hover {
+            background-color: #45a049;
+        }
+    </style>
 </head>
 <body>
 <h2>Upload Music</h2>
-<form th:action="@{/music/upload}" method="post" enctype="multipart/form-data">
-    <input type="file" name="files" multiple="multiple"><br>
+<form th:action="@{/artist/upload}" method="post" enctype="multipart/form-data">
+    <input type="file" name="file"><br>
     <input type="submit" value="Upload">
 </form>
 </body>
