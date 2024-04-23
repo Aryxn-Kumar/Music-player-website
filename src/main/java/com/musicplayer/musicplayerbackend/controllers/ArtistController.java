@@ -15,14 +15,17 @@ import java.io.IOException;
 public class ArtistController {
 
     @Autowired
-    MusicService musicService;
+    private final MusicService musicService;
+
+    public ArtistController(MusicService musicService) {
+        this.musicService = musicService;
+    }
 
     @PostMapping("/upload")
-    public ResponseEntity<String> uploadMusic(@RequestParam("file") MultipartFile file) {
-        String convertedFile = musicService.uploadMusicToBlob(file);
+    public String uploadMusic(@RequestParam("file") MultipartFile file) {
+        musicService.uploadMusicToBlob(file);
 
-        System.out.println(convertedFile);
-        return ResponseEntity.ok("Music converted to HLS successfully.");
+        return "musicUpload";
     }
 
     @GetMapping("/upload")

@@ -1,4 +1,5 @@
 package com.musicplayer.musicplayerbackend.controllers;
+import com.musicplayer.musicplayerbackend.Service.HlsService;
 import com.musicplayer.musicplayerbackend.Service.MusicService;
 import com.musicplayer.musicplayerbackend.utilities.CleanName;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,7 +14,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class MusicController {
 
     @Autowired
-    private MusicService musicService;
+    private HlsService hlsService;
 
 
     @GetMapping("/play")
@@ -25,7 +26,7 @@ public class MusicController {
     @GetMapping("/play/{fileName}")
     public ResponseEntity<String> getHLSUrl(@PathVariable String fileName) {
         fileName = CleanName.sanitizeFilename(fileName);
-        String hlsUrl = musicService.getHLSUrl(fileName);
+        String hlsUrl = hlsService.getHLSUrl(fileName);
         return ResponseEntity.ok(hlsUrl);
     }
 

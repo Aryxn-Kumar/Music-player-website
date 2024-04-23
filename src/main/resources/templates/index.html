@@ -1,54 +1,70 @@
+
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Admin Homepage</title>
-    <!-- Bootstrap CSS -->
-    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <title>Music Player</title>
+    <style>
+        body {
+            background-color: #000;
+            color: #888;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            text-align: center;
+        }
+        h1 {
+            font-size: 2em;
+            color: #ccc;
+        }
+        input[type="text"] {
+            padding: 10px;
+            margin: 10px;
+            border: none;
+            border-radius: 5px;
+            width: 300px;
+            font-size: 1em;
+            background-color: #8899a5; /* fixed typo */
+        }
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #444;
+            color: #fff;
+            font-size: 1em;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #666;
+        }
+        audio {
+            width: 100%;
+            margin-top: 20px;
+        }
+        .image-container {
+            margin-bottom: 20px;
+        }
+    </style>
 </head>
 <body>
-<div class="container mt-4">
-    <h1>Welcome, Admin!</h1>
-    <div class="btn-group mt-3" role="group" aria-label="Admin Actions">
-        <a th:href="@{/admin/get_all_users}" class="btn btn-primary">View All Users</a>
-        <a th:href="@{/admin/createUser}" class="btn btn-success">Create User</a>
+<div class="container">
+    <div class="image-container">
+        <img src="img.png" alt="Image" width="200">
     </div>
+    <a th:href="@{/music/play}">
+        <button>Player</button>
+    </a>
+    <button>Upload</button>
 
-    <!-- User Search Form -->
-    <form id="searchUserForm" class="input-group mt-3" th:action="@{/admin/get_user}" method="get">
-        <input id="usernameInput" type="text" class="form-control" placeholder="Enter username to search" aria-label="Username" name="username">
-        <div class="input-group-append">
-            <button id="searchBtn" class="btn btn-info" type="submit">Search</button>
-        </div>
-    </form>
-
-    <!-- User Details (Initially Hidden) -->
-    <div id="userDetails" class="mt-4" th:if="${userFound}">
-        <div class="card">
-            <div class="card-body">
-                <h3 class="card-title">User Details</h3>
-                <p class="card-text">Username: <span th:text="${user.username}"></span></p>
-                <p class="card-text">Name: <span th:text="${user.name}"></span></p>
-                <p class="card-text">Email: <span th:text="${user.email}"></span></p>
-                <!-- Display more user details as needed -->
-                <form th:action="@{/admin/deleteUser}" method="post">
-                    <input type="hidden" name="username" th:value="${user.username}">
-                    <button type="submit" class="btn btn-danger">Delete User</button>
-                </form>
-            </div>
-        </div>
-    </div>
-    <div th:unless="${userFound}">
-        <div class="alert alert-danger mt-3" role="alert">
-            User not found.
-        </div>
-    </div>
 </div>
-
-<!-- Bootstrap JS and jQuery -->
-<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>

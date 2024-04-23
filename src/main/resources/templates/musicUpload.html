@@ -5,47 +5,68 @@
     <title>File Upload</title>
     <style>
         body {
+            background-color: #000;
+            color: #888;
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
             margin: 0;
             padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
+            position: relative; /* Add position relative to the body */
+        }
+        .container {
+            text-align: center;
         }
         h2 {
-            text-align: center;
-            color: #333;
+            font-size: 2em;
+            color: #ccc;
         }
-        form {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        }
-        input[type="file"] {
-            margin-bottom: 10px;
-        }
+        input[type="text"],
+        input[type="file"],
         input[type="submit"] {
-            background-color: #4CAF50;
-            color: white;
-            padding: 10px 20px;
+            padding: 10px;
+            margin: 10px;
             border: none;
             border-radius: 5px;
-            cursor: pointer;
-            transition: background-color 0.3s;
+            width: 300px;
+            font-size: 1em;
+            background-color: #8899a5; /* fixed typo */
         }
-        input[type="submit"]:hover {
-            background-color: #45a049;
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #444;
+            color: #fff;
+            font-size: 1em;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #666;
+        }
+        audio {
+            width: 100%;
+            margin-top: 20px;
+        }
+        .image-container {
+            margin-bottom: 20px;
+            position: absolute; /* Add position absolute */
+            top: 10px; /* Set top position */
+            left: 10px; /* Set left position */
         }
     </style>
 </head>
 <body>
-<h2>Upload Music</h2>
-<form th:action="@{/artist/upload}" method="post" enctype="multipart/form-data">
-    <input type="file" name="file"><br>
-    <input type="submit" value="Upload">
-</form>
+<img src="img.png" alt="Logo" class="image-container"> <!-- Move the image outside of the container div -->
+<div class="container">
+    <h2>Upload Music</h2>
+    <form th:action="@{/artist/upload}" method="post" enctype="multipart/form-data">
+        <input type="file" name="file"><br>
+        <input type="submit" value="Upload">
+    </form>
+</div>
 </body>
 </html>

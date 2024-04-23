@@ -1,5 +1,9 @@
 package com.musicplayer.musicplayerbackend.Service;
 
+import com.musicplayer.musicplayerbackend.model.Interfaces.CustomLogger;
+import com.musicplayer.musicplayerbackend.model.Interfaces.SongFactory;
+import com.musicplayer.musicplayerbackend.model.Song;
+import com.musicplayer.musicplayerbackend.repository.SongRepository;
 import com.musicplayer.musicplayerbackend.utilities.CleanName;
 import com.musicplayer.musicplayerbackend.utilities.TempFolderCleaner;
 import org.apache.commons.io.FilenameUtils;
@@ -9,73 +13,53 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Path;
 
 @Service
 public class MusicService {
 
-    @Autowired
-    TempFolderCleaner tempFolderCleaner;
+    private final TempFolderCleaner tempFolderCleaner;
+
+    private final SongRepository songRepository;
+
+    private final AzureBlobService azureBlobService;
+
+    private final SongFactory songFactory;
+
+    private final CustomLogger logger;
+
+    private final HlsService hlsService;
 
     @Autowired
-    AzureBlobService azureBlobService;
-
-    public String convertToHLS(MultipartFile file) {
-        File tempFile = null;
-
-        try {
-            // Resolve the temp directory path in the project's root directory
-            String projectRoot = System.getProperty("user.dir");
-            File tempDirectory = new File(projectRoot, "temp");
-            tempFolderCleaner.clearTempFolder();
-            // Create the temp directory if it doesn't exist
-            if (!tempDirectory.exists()) {
-                tempDirectory.mkdirs();
-            }
-
-            // Convert the music file to HLS format
-            String originalFilename = file.getOriginalFilename();
-            String sanitizedFilename = CleanName.sanitizeFilename(originalFilename);
-            String extension = FilenameUtils.getExtension(originalFilename); // Get the file extension
-            sanitizedFilename = sanitizedFilename.replace("." + extension, "");
-            System.out.println(sanitizedFilename);
-
-            // Create the temporary file in the temp directory
-            tempFile = new File(tempDirectory, sanitizedFilename);
-            file.transferTo(tempFile);
-
-            // Sanitize the filename for HLS output
-            String hlsSanitizedFilename = sanitizedFilename.replaceAll("[^a-zA-Z0-9]", "_");
-
-            // Call FFmpeg to transcode and segment the audio file
-            String[] ffmpegCommand = {
-                    "/usr/bin/ffmpeg",
-                    "-i", tempFile.getAbsolutePath(),
-                    "-c:a", "aac",
-                    "-b:a", "128k",
-                    "-f", "hls",
-                    "-hls_time", "10",
-                    "-hls_list_size", "0",
-                    tempDirectory.getAbsolutePath() + "/" + hlsSanitizedFilename + ".m3u8"
-            };
-
-            ProcessBuilder processBuilder = new ProcessBuilder(ffmpegCommand);
-            Process process = processBuilder.start();
-            process.waitFor();
-
-        } catch (IOException | InterruptedException e) {
-            e.printStackTrace();
-        }
-
-        return "Succesfully converted";
+    public MusicService(TempFolderCleaner tempFolderCleaner, SongRepository songRepository, AzureBlobService azureBlobService, SongFactory songFactory, CustomLogger logger, HlsService hlsService) {
+        this.tempFolderCleaner = tempFolderCleaner;
+        this.songRepository = songRepository;
+        this.azureBlobService = azureBlobService;
+        this.songFactory = songFactory;
+        this.logger = logger;
+        this.hlsService = hlsService;
     }
 
-    public String uploadMusicToBlob(MultipartFile file) {
+
+    public void createNewSong(String songName){
+        songName = CleanName.sanitizeFilename(songName);
+        String songUrl = hlsService.getHLSUrl(songName);
+        Song song = songFactory.createSong(songUrl, songName);
+        songRepository.save(song);
+        logger.info("Song persisted to DB");
+    }
+
+
+
+    public void uploadMusicToBlob(MultipartFile file) {
         String projectRoot = System.getProperty("user.dir");
         File tempDirectory = new File(projectRoot, "temp");
 
-        System.out.println(convertToHLS(file));
+        String songName = file.getOriginalFilename();
+
+        //call the function
+
+        hlsService.convertToHLS(file);
+        logger.info("File converted succesfully");
 
         if (tempDirectory.exists() && tempDirectory.isDirectory()) { // Check if tempDirectory is a directory
             try {
@@ -93,21 +77,19 @@ public class MusicService {
                         }
                     }
                 }
-                System.out.println("All files uploaded");
+                //add log
+
+                createNewSong(songName);
+
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
-        return "200 ok";
+        logger.info("Song uploaded successfully");
     }
 
 
 
-    public String getHLSUrl(String songName){
-        String sanitizedFilename = CleanName.sanitizeFilename(songName);
-        sanitizedFilename = sanitizedFilename.replace("." ,"");
-        return "https://musicplayerdata.blob.core.windows.net/music/" + songName + ".m3u8";
-    }
 
 
 

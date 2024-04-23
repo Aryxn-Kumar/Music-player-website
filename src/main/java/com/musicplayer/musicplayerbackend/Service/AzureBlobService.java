@@ -8,6 +8,7 @@ import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.musicplayer.musicplayerbackend.model.Interfaces.CustomLogger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -20,17 +21,25 @@ import com.azure.storage.blob.models.BlobItem;
 @Component
 public class AzureBlobService {
 
-    @Autowired
-    BlobServiceClient blobServiceClient;
+    private final BlobServiceClient blobServiceClient;
+
+    private final BlobContainerClient blobContainerClient;
+
+    private final CustomLogger logger;
 
     @Autowired
-    BlobContainerClient blobContainerClient;
+    public AzureBlobService(BlobServiceClient blobServiceClient, BlobContainerClient blobContainerClient, CustomLogger logger) {
+        this.blobServiceClient = blobServiceClient;
+        this.blobContainerClient = blobContainerClient;
+        this.logger = logger;
+    }
 
     public boolean upload(File file) throws IOException {
 
-
         BlobClient blob = blobContainerClient.getBlobClient(file.getName());
         blob.upload(new FileInputStream(file), file.length(), true);
+
+        logger.info("File Uploaded to Azure Blob");
 
         return true;
     }
