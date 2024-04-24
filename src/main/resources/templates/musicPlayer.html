@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Music Player</title>
+    <title>AudioVerse-player</title>
+    <link rel="icon" href="https://musicplayerdata.blob.core.windows.net/music/img.png" type="image/png">
+
 
     <link rel="stylesheet" type="text/css" href="styles.css">
     <style>
@@ -64,7 +66,7 @@
     <h1>Welcome to AudioVerse</h1>
     <input type="text" id="searchInput" placeholder="Search for a song...">
     <button onclick="searchSong()">Search</button>
-    <button onclick="likeSong()">Like</button>
+<!--    <button onclick="likeSong()">Like</button>-->
     <audio id="audioPlayer" controls></audio>
 </div>
 <a th:href="@{/}">

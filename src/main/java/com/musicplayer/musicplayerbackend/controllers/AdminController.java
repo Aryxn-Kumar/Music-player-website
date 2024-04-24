@@ -19,7 +19,7 @@ public class AdminController {
 
     @GetMapping("/home")//go to localhost:8080/admin/home to see admin interface
     public String adminHome() {
-        return "index";
+        return "admin";
     }
 
     @GetMapping("/get_all_users")
@@ -51,7 +51,7 @@ public class AdminController {
         } else {
             model.addAttribute("userFound", false);
         }
-        return "index";
+        return "admin";
     }
 
     @PostMapping("/deleteUser")
