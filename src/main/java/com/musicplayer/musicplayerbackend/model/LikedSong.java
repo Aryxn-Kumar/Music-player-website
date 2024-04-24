@@ -10,6 +10,5 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class LikedSong {
     @Id
     private ObjectId id;
-    private String userId;
     private  String songId;
 }

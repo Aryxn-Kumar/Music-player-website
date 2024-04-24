@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Music Player</title>
-    <!-- Include any CSS files for styling -->
+
     <link rel="stylesheet" type="text/css" href="styles.css">
     <style>
         body {
@@ -17,6 +17,12 @@
             justify-content: center;
             align-items: center;
             height: 100vh;
+        }
+        .image-container {
+            margin-bottom: 20px;
+            position: absolute; /* Add position absolute */
+            top: 10px; /* Set top position */
+            left: 10px; /* Set left position */
         }
         .container {
             text-align: center;
@@ -61,8 +67,9 @@
     <button onclick="likeSong()">Like</button>
     <audio id="audioPlayer" controls></audio>
 </div>
-
-<!-- Include any JavaScript files or scripts -->
+<a th:href="@{/}">
+    <img src="https://musicplayerdata.blob.core.windows.net/music/img.png" alt="Logo" class="image-container" width="300">
+</a>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
 <script>

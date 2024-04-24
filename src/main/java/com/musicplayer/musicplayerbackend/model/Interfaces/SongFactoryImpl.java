@@ -11,9 +11,9 @@ public class SongFactoryImpl implements SongFactory{
 
     @Override
     public Song createSong(String songUrl, String title) {
-        title = CleanName.sanitizeFilename(title);
+        String cleanedTitle = CleanName.sanitizeFilename(title);
 
-        ObjectId songId = new ObjectId(HashUtility.generateHash(title));
+        ObjectId songId = new ObjectId(HashUtility.generateHash(cleanedTitle));
         return new Song(songId, songUrl, title);
     }
 }

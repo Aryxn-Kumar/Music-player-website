@@ -32,7 +32,9 @@
             border-radius: 5px;
             width: 300px;
             font-size: 1em;
-            background-color: #8899a5; /* fixed typo */
+            background-color: #444;
+            colour: #fff;
+            font-size: 1em;
         }
         button {
             padding: 10px 20px;
@@ -60,9 +62,12 @@
     </style>
 </head>
 <body>
-<img src="img.png" alt="Logo" class="image-container"> <!-- Move the image outside of the container div -->
+<a th:href="@{/}">
+    <img src="https://musicplayerdata.blob.core.windows.net/music/img.png" alt="Logo" class="image-container" width="300">
+</a>
+
 <div class="container">
-    <h2>Upload Music</h2>
+    <h2>Share your art with the world.</h2>
     <form th:action="@{/artist/upload}" method="post" enctype="multipart/form-data">
         <input type="file" name="file"><br>
         <input type="submit" value="Upload">

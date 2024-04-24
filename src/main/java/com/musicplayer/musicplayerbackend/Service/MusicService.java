@@ -4,9 +4,6 @@ import com.musicplayer.musicplayerbackend.model.Interfaces.CustomLogger;
 import com.musicplayer.musicplayerbackend.model.Interfaces.SongFactory;
 import com.musicplayer.musicplayerbackend.model.Song;
 import com.musicplayer.musicplayerbackend.repository.SongRepository;
-import com.musicplayer.musicplayerbackend.utilities.CleanName;
-import com.musicplayer.musicplayerbackend.utilities.TempFolderCleaner;
-import org.apache.commons.io.FilenameUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -17,7 +14,6 @@ import java.io.IOException;
 @Service
 public class MusicService {
 
-    private final TempFolderCleaner tempFolderCleaner;
 
     private final SongRepository songRepository;
 
@@ -30,8 +26,7 @@ public class MusicService {
     private final HlsService hlsService;
 
     @Autowired
-    public MusicService(TempFolderCleaner tempFolderCleaner, SongRepository songRepository, AzureBlobService azureBlobService, SongFactory songFactory, CustomLogger logger, HlsService hlsService) {
-        this.tempFolderCleaner = tempFolderCleaner;
+    public MusicService(SongRepository songRepository, AzureBlobService azureBlobService, SongFactory songFactory, CustomLogger logger, HlsService hlsService) {
         this.songRepository = songRepository;
         this.azureBlobService = azureBlobService;
         this.songFactory = songFactory;
@@ -41,7 +36,7 @@ public class MusicService {
 
 
     public void createNewSong(String songName){
-        songName = CleanName.sanitizeFilename(songName);
+
         String songUrl = hlsService.getHLSUrl(songName);
         Song song = songFactory.createSong(songUrl, songName);
         songRepository.save(song);

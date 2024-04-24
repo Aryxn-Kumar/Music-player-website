@@ -58,12 +58,15 @@
 <body>
 <div class="container">
     <div class="image-container">
-        <img src="img.png" alt="Image" width="200">
+        <img src="https://musicplayerdata.blob.core.windows.net/music/img.png" alt="Image" width="300">
     </div>
     <a th:href="@{/music/play}">
         <button>Player</button>
     </a>
-    <button>Upload</button>
+    <a th:href="@{/artist/upload}">
+        <button>Upload</button>
+    </a>
+
 
 </div>
 </body>
