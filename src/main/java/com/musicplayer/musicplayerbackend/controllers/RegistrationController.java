@@ -1,4 +1,4 @@
-package com.musicplayer.musicplayerbackend.Controllers;
+package com.musicplayer.musicplayerbackend.controllers;
 
 import com.musicplayer.musicplayerbackend.model.RegularUser;
 import com.musicplayer.musicplayerbackend.repository.UserRepository;

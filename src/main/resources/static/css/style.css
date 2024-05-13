@@ -1,53 +1,44 @@
-/* Reset default styles */
-* {
+body {
+    font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    box-sizing: border-box;
 }
 
-/* Dark theme styles */
-body {
-    background-color: #343a40; /* Dark background color */
-    color: #fff; /* Light text color */
-    font-family: Arial, sans-serif; /* Use a common font family */
+header {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
 }
 
-.container {
-    margin-top: 50px;
+header h1 {
+    margin: 0;
 }
 
-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
+#searchBox {
+    padding: 5px;
+    border: none;
+    border-radius: 5px;
 }
 
-th, td {
-    padding: 8px;
-    text-align: left;
-    border-bottom: 1px solid #dee2e6;
+main {
+    padding: 20px;
 }
 
-th {
-    background-color: #212529; /* Dark header background color */
-    color: #fff; /* Light text color for header */
+#musicPlayerContainer {
+    display: flex;
+    justify-content: center;
 }
 
-tr:nth-child(even) {
-    background-color: #495057; /* Dark alternate row background color */
+audio {
+    width: 80%;
 }
 
-tr:hover {
-    background-color: #343a40; /* Dark hover background color */
-}
-
-/* Responsive styles for tables */
-@media (max-width: 768px) {
-    table {
-        font-size: 14px; /* Reduce font size for smaller screens */
-    }
-
-    th, td {
-        padding: 6px; /* Adjust padding for smaller screens */
-    }
+footer {
+    background-color: #333;
+    color: #fff;
+    padding: 10px;
+    text-align: center;
 }

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AudioVerse-player</title>
+    <link rel="icon" href="https://musicplayerdata.blob.core.windows.net/music/img.png" type="image/png">
+
+
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <style>
+        body {
+            background-color: #000;
+            color: #888;
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .image-container {
+            margin-bottom: 20px;
+            position: absolute; /* Add position absolute */
+            top: 10px; /* Set top position */
+            left: 10px; /* Set left position */
+        }
+        .container {
+            text-align: center;
+        }
+        h1 {
+            font-size: 2em;
+            color: #ccc;
+        }
+        input[type="text"] {
+            padding: 10px;
+            margin: 10px;
+            border: none;
+            border-radius: 5px;
+            width: 300px;
+            font-size: 1em;
+            background-colour: #8899a5;
+        }
+        button {
+            padding: 10px 20px;
+            margin: 10px;
+            border: none;
+            border-radius: 5px;
+            background-color: #444;
+            color: #fff;
+            font-size: 1em;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #666;
+        }
+        audio {
+            width: 100%;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Welcome to AudioVerse</h1>
+    <input type="text" id="searchInput" placeholder="Search for a song...">
+    <button onclick="searchSong()">Search</button>
+<!--    <button onclick="likeSong()">Like</button>-->
+    <audio id="audioPlayer" controls></audio>
+</div>
+<a th:href="@{/}">
+    <img src="https://musicplayerdata.blob.core.windows.net/music/img.png" alt="Logo" class="image-container" width="300">
+</a>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+<script>
+    function searchSong() {
+        var searchTerm = $("#searchInput").val();
+        $.get("/music/play/" + searchTerm, function(hlsUrl) {
+            if (Hls.isSupported()) {
+                const audioPlayer = document.getElementById('audioPlayer');
+                const hls = new Hls();
+                hls.loadSource(hlsUrl);
+                hls.attachMedia(audioPlayer);
+            } else {
+                console.error('HLS.js is not supported');
+            }
+        });
+    }
+    function likeSong() {
+        // Add functionality to like a song here
+    }
+</script>
+</body>
+</html>

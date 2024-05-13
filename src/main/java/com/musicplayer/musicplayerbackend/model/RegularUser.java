@@ -13,7 +13,7 @@ import java.util.List;
 
 @Document(collection = "Users")
 @Data
-public class RegularUser implements Users {
+public class RegularUser {
     @Id
     private ObjectId id; // Use ObjectId for ID field
     @Getter @Setter
@@ -28,5 +28,6 @@ public class RegularUser implements Users {
     private UserRole role= UserRole.USER;
     @Getter @Setter
     private List<LikedSong> likedSongs; // List of songs user has liked
+
 
 }

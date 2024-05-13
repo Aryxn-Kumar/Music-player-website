@@ -3,11 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create User</title>
-    <!-- Bootstrap CSS -->
+    <title>Admin Homepage</title>
     <link rel="icon" href="https://musicplayerdata.blob.core.windows.net/music/img.png" type="image/png">
-    <!-- Custom CSS -->
-    <link href="/css/style.css" rel="stylesheet">
+    <!-- Bootstrap CSS -->
+
     <style>
         body {
             background-color: #000;
@@ -60,27 +59,43 @@
 </head>
 <body>
 <div class="container mt-4">
-    <h1>Create User</h1>
-    <form th:action="@{/admin/createUser}" method="post">
-        <div class="form-group">
-            <label for="username">Username</label>
-            <input type="text" id="username" name="username" class="form-control" required>
+    <h1>Welcome, Admin!</h1>
+    <div class="btn-group mt-3" role="group" aria-label="Admin Actions">
+        <a th:href="@{/admin/get_all_users}" class="btn btn-primary">View All Users</a>
+        <a th:href="@{/admin/createUser}" class="btn btn-success">Create User</a>
+    </div>
+
+    <!-- User Search Form -->
+    <form id="searchUserForm" class="input-group mt-3" th:action="@{/admin/get_user}" method="get">
+        <input id="usernameInput" type="text" class="form-control" placeholder="Enter username to search" aria-label="Username" name="username">
+        <div class="input-group-append">
+            <button id="searchBtn" class="btn btn-info" type="submit">Search</button>
         </div>
-        <div class="form-group">
-            <label for="name">Name</label>
-            <input type="text" id="name" name="name" class="form-control" required>
-        </div>
-        <div class="form-group">
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" class="form-control" required>
-        </div>
-        <div class="form-group">
-            <label for="password">Password</label>
-            <input type="password" id="password" name="password" class="form-control" required>
-        </div>
-        <button type="submit" class="btn btn-primary">Create</button>
     </form>
+
+    <!-- User Details (Initially Hidden) -->
+    <div id="userDetails" class="mt-4" th:if="${userFound}">
+        <div class="card">
+            <div class="card-body">
+                <h3 class="card-title">User Details</h3>
+                <p class="card-text">Username: <span th:text="${user.username}"></span></p>
+                <p class="card-text">Name: <span th:text="${user.name}"></span></p>
+                <p class="card-text">Email: <span th:text="${user.email}"></span></p>
+                <!-- Display more user details as needed -->
+                <form th:action="@{/admin/deleteUser}" method="post">
+                    <input type="hidden" name="username" th:value="${user.username}">
+                    <button type="submit" class="btn btn-danger">Delete User</button>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div th:unless="${userFound}">
+        <div class="alert alert-danger mt-3" role="alert">
+            User not found.
+        </div>
+    </div>
 </div>
+
 <!-- Bootstrap JS and jQuery -->
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.2/dist/umd/popper.min.js"></script>

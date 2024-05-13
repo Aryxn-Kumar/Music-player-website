@@ -9,19 +9,17 @@ import org.springframework.data.mongodb.core.mapping.Document;
 
 @Document(collection = "Songs")
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
 public class Song {
-    public Song(String fileName) {
-        this.fileName = fileName;
+    public Song(ObjectId id, String songUrl, String title) {
+        this.id = id;
+        this.songUrl = songUrl;
+        this.title = title;
     }
 
     @Id
-    private ObjectId Id;
-    private String fileName;
+    private ObjectId id;
+    private String songUrl;
     private String title;
-    private String artist;
-    private String album;
-    private String duration;
-    private int likes;
+
 }

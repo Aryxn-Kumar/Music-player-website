@@ -11,7 +11,7 @@ import java.util.Optional;
 @Service
 public class UserServiceImp implements UserService {
     @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     public UserServiceImp(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -19,6 +19,7 @@ public class UserServiceImp implements UserService {
 
     @Override
     public RegularUser createUser(RegularUser user) {
+        System.out.println("Created User: \n" + user.toString());
         return userRepository.save(user);
     }
 
@@ -31,6 +32,7 @@ public class UserServiceImp implements UserService {
     public void deleteUserByUsername(String username) {
         Optional<RegularUser> existingUserOptional = userRepository.findByUsername(username);
         existingUserOptional.ifPresent(userRepository::delete);
+        System.out.println("Deleted user: "+username);
     }
 
     @Override
